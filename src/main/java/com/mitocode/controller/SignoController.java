@@ -2,18 +2,18 @@ package com.mitocode.controller;
 
 import java.net.URI;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,7 +22,7 @@ import com.mitocode.exception.ModeloNotFoundException;
 import com.mitocode.model.Signo;
 import com.mitocode.service.ISignoService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 
 @RestController
 @RequestMapping("/signos")
@@ -41,7 +41,7 @@ public class SignoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> registrar(@Valid @RequestBody Signo signo) throws Exception{
+	public ResponseEntity<Void> registrar(@Validated @RequestBody Signo signo) throws Exception{
 		Signo obj = service.registrar(signo);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -49,10 +49,9 @@ public class SignoController {
 		
 		return ResponseEntity.created(location).build();
 	}
-	
 	@PutMapping
-	public ResponseEntity<Signo> modificar(@Valid @RequestBody Signo signos) throws Exception{
-		Signo obj = service.modificar(signos);
+	public ResponseEntity<Signo> modificar(@Validated @RequestBody Signo signo) throws Exception{
+		Signo obj = service.modificar(signo);
 		return new ResponseEntity<Signo>(obj, HttpStatus.OK);
 	}
 	

@@ -21,7 +21,7 @@ public class Signo {
 	private Integer IdSigno;
 	
 	@ManyToOne // FK
-	@JoinColumn(name = "id_paciente", nullable = false, foreignKey = @ForeignKey(name = "FK_consulta_signos"))
+	@JoinColumn(name = "id_paciente", nullable = false, foreignKey = @ForeignKey(name = "FK_consulta_signo"))
 	private Paciente paciente;
 	
 	@Column(name = "temperatura", nullable = false, length = 20)
@@ -36,6 +36,23 @@ public class Signo {
 	
 	@Column(name = "fecha", nullable = false)
 	private LocalDateTime fecha;
+
+	public Signo() {
+	}
+	
+	
+
+	public Signo(Integer idSigno, Paciente paciente, String temperatura, String pulso, String ritmoRespiratorio,
+			LocalDateTime fecha) {
+		IdSigno = idSigno;
+		this.paciente = paciente;
+		this.temperatura = temperatura;
+		this.pulso = pulso;
+		this.ritmoRespiratorio = ritmoRespiratorio;
+		this.fecha = fecha;
+	}
+
+
 
 	public Integer getIdSigno() {
 		return IdSigno;
@@ -85,6 +102,10 @@ public class Signo {
 		this.fecha = fecha;
 	}
 	
+	
+	
+	
+
 	
 	
 	
